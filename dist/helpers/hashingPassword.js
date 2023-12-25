@@ -39,11 +39,11 @@ function hashPassword(password) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const hashedPassword = yield argon2.hash(password);
-            console.log(hashPassword);
+            console.log("From HashPassword MiddleWare", hashedPassword);
             return hashedPassword;
         }
         catch (error) {
-            console.error("Error hashing password:", error);
+            console.error("Error hashing password:", hashPassword);
             throw error;
         }
     });

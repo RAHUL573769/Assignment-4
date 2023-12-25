@@ -1,5 +1,5 @@
 import z from "zod";
-import { USER_ROLES_Validations, userRole } from "./user.constants";
+import { USER_ROLES_Validations } from "./user.constants";
 
 const createUserValidation = z.object({
   username: z.string({ required_error: "User Name is Required" }),

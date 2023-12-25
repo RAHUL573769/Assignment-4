@@ -26,6 +26,7 @@ const validationMiddleWare = (schema) => {
         }
         else {
             req.body = result.data;
+            next();
         }
     });
 };

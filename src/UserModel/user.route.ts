@@ -13,6 +13,7 @@ const validationMiddleWare = (schema: AnyZodObject) => {
       console.log("Error From Validate MiddleWare", result.error);
     } else {
       req.body = result.data;
+      next();
     }
   };
 };

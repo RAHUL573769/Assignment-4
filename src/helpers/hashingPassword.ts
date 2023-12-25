@@ -4,10 +4,10 @@ import * as argon2 from "argon2";
 export async function hashPassword(password: string): Promise<string> {
   try {
     const hashedPassword = await argon2.hash(password);
-    console.log(hashPassword);
+    console.log("From HashPassword MiddleWare", hashedPassword);
     return hashedPassword;
   } catch (error) {
-    console.error("Error hashing password:", error);
+    console.error("Error hashing password:", hashPassword);
     throw error;
   }
 }

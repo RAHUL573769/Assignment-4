@@ -15,19 +15,32 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_services_1 = require("./user.services");
 const http_status_1 = __importDefault(require("http-status"));
+const hashingPassword_1 = require("../helpers/hashingPassword");
 const createUserIntoDb = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
-        const result = yield user_services_1.UserServices.createUserIntoDb(userData);
+        const hashedPassword1 = yield (0, hashingPassword_1.hashPassword)(userData.password);
+        const finalUserData = {
+            username: userData.username,
+            email: userData.email,
+            password: hashedPassword1,
+            role: userData.role
+        };
+        // console.log("Final User Data From User Controller Line 22", finalUserData);
+        const result = yield user_services_1.UserServices.createUserIntoDb(finalUserData);
+        // console.log("16", hashedPassword1);
         res.status(http_status_1.default.CREATED).json({
             message: "User Data Created",
             status: "Success",
             data: result
         });
-        console.log("User Data From 10 number line UserController.ts", userData);
+        // console.log(
+        //   "User Data From 10 number line UserController.ts",
+        //   userData.password
+        // );
     }
     catch (error) {
-        console.log(error);
+        console.log("Error From User Controller Line 36", error);
     }
 });
 exports.UserController = { createUserIntoDb };
