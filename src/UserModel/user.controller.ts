@@ -3,6 +3,7 @@ import { UserServices } from "./user.services";
 import httpStatus from "http-status";
 import { hashPassword } from "../helpers/HashingPasswordFolder/hashingPassword";
 import { IUser } from "./user.interface";
+import GenericError from "../classes/errorClasses/GenericError";
 
 const createUserIntoDb = async (
   req: Request,
@@ -19,6 +20,7 @@ const createUserIntoDb = async (
       password: hashedPassword1,
       role: userData.role
     };
+    // throw new GenericError("vua", 404);
     // console.log("Final User Data From User Controller Line 22", finalUserData);
     const result = await UserServices.createUserIntoDb(finalUserData);
 

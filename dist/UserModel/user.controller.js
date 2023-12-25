@@ -26,6 +26,7 @@ const createUserIntoDb = (req, res, next) => __awaiter(void 0, void 0, void 0, f
             password: hashedPassword1,
             role: userData.role
         };
+        // throw new GenericError("vua", 404);
         // console.log("Final User Data From User Controller Line 22", finalUserData);
         const result = yield user_services_1.UserServices.createUserIntoDb(finalUserData);
         // console.log("Hashed Password From User Create Controller", hashedPassword1);
