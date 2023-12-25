@@ -9,11 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserServices = void 0;
-const user_model_1 = require("./user.model");
-const createUserIntoDb = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    //   console.log("User Payload From Create User Services", payload);
-    const result = yield user_model_1.User.create(payload);
-    return result;
-});
-exports.UserServices = { createUserIntoDb };
+exports.validationMiddleWare = void 0;
+const validationMiddleWare = (schema) => {
+    return (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        const data = req.body;
+        const result = yield schema.safeParseAsync(data);
+        if (!result.success) {
+            //   console.log("Error From Validate MiddleWare", result.error);
+            next(result.error);
+        }
+        else {
+            req.body = result.data;
+            next();
+        }
+    });
+};
+exports.validationMiddleWare = validationMiddleWare;
