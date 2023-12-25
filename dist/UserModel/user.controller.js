@@ -40,7 +40,7 @@ const createUserIntoDb = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         // );
     }
     catch (error) {
-        console.log("Error From User Controller Line 36", error);
+        // console.log("Error From User Controller Line 36", error);
         next(error);
     }
 });

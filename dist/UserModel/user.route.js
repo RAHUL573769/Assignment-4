@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRouter = void 0;
 const express_1 = __importDefault(require("express"));
 const user_controller_1 = require("./user.controller");
-const user_validations_1 = require("./user.validations");
-const validationMiddlewares_1 = require("../middlewares/validationMiddlewares");
 const router = express_1.default.Router();
-router.post("/create-user", (0, validationMiddlewares_1.validationMiddleWare)(user_validations_1.ZodValidation.createUserValidation), user_controller_1.UserController.createUserIntoDb);
+router.post("/create-user", 
+// validationMiddleWare(ZodValidation.createUserValidation),
+user_controller_1.UserController.createUserIntoDb);
 exports.UserRouter = router;

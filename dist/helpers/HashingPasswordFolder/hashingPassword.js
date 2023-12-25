@@ -39,11 +39,11 @@ function hashPassword(password) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const hashedPassword = yield argon2.hash(password);
-            console.log("From HashPassword MiddleWare", hashedPassword);
+            // console.log("From HashPassword MiddleWare", hashedPassword);
             return hashedPassword;
         }
         catch (error) {
-            console.error("Error hashing password:", hashPassword);
+            // console.error("Error hashing password:", hashPassword);
             throw error;
         }
     });
@@ -57,7 +57,7 @@ function verifyPassword(hashedPassword, inputPassword) {
             return isPasswordValid;
         }
         catch (error) {
-            console.error("Error verifying password:", error);
+            console.error("Error verifying password d From hashing password Folder:", error);
             throw error;
         }
     });
@@ -69,12 +69,12 @@ exports.verifyPassword = verifyPassword;
     try {
         // Hash the password
         const hashedPassword = yield hashPassword(passwordToHash);
-        console.log("Hashed Password:", hashedPassword);
+        console.log("Hashed Password  From hashing password Folder:", hashedPassword);
         // Verify the password
         const isPasswordValid = yield verifyPassword(hashedPassword, "user_input_password");
-        console.log("Is Password Valid?", isPasswordValid);
+        // console.log("Is Password Valid?", isPasswordValid);
     }
     catch (error) {
-        console.error("An error occurred:", error);
+        console.error("An error occurred From hashing password Folder:", error);
     }
 }))();
