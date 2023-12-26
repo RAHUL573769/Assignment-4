@@ -7,11 +7,8 @@ const createACategory = async (
   const result = await Categories.create(categoriesPayload);
   return result;
 };
-const receiveASingleCategory = async (): Promise<ICategory[]> => {
-  const result = await Categories.find().populate({
-    path: "user",
-    select: " username email"
-  });
+const receiveAllSingleCategory = async (): Promise<ICategory[]> => {
+  const result = await Categories.find();
 
   // const result = await Review.find().populate({
   //   path: 'user',
@@ -19,5 +16,17 @@ const receiveASingleCategory = async (): Promise<ICategory[]> => {
   // })
   return result;
 };
+const receiveSingleCategory = async (id: string): Promise<ICategory | null> => {
+  const result = await Categories.findById(id);
 
-export const CategoryServices = { createACategory, receiveASingleCategory };
+  // const result = await Review.find().populate({
+  //   path: 'user',
+  //   select: 'name photo',
+  // })
+  return result;
+};
+export const CategoryServices = {
+  createACategory,
+  receiveAllSingleCategory,
+  receiveSingleCategory
+};

@@ -16,7 +16,8 @@ exports.UserController = void 0;
 const user_services_1 = require("./user.services");
 const http_status_1 = __importDefault(require("http-status"));
 const hashingPassword_1 = require("../helpers/HashingPasswordFolder/hashingPassword");
-const createUserIntoDb = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const catchAsyncFunction_1 = require("../helpers/CatchAsyccFunction/catchAsyncFunction");
+const createUserIntoDb = (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;
         const hashedPassword1 = yield (0, hashingPassword_1.hashPassword)(userData.password);
@@ -44,8 +45,8 @@ const createUserIntoDb = (req, res, next) => __awaiter(void 0, void 0, void 0, f
         // console.log("Error From User Controller Line 36", error);
         next(error);
     }
-});
-const getUsersFromDb = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+const getUsersFromDb = (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield user_services_1.UserServices.getAllCreatedUsersFromDb();
         res.status(http_status_1.default.OK).json({
@@ -58,8 +59,8 @@ const getUsersFromDb = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
         // console.log("Error From User Controller Line 36", error);
         next(error);
     }
-});
-const getSingleUserFromDb = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+const getSingleUserFromDb = (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userId = req.params.id;
         const result = yield user_services_1.UserServices.getSingleDataFromDb(userId);
@@ -73,8 +74,8 @@ const getSingleUserFromDb = (req, res, next) => __awaiter(void 0, void 0, void 0
         // console.log("Error From User Controller Line 36", error);
         next(error);
     }
-});
-const updateUsersFromDb = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+const updateUsersFromDb = (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const id = req.params.id;
         const body = req.body;
@@ -89,7 +90,7 @@ const updateUsersFromDb = (req, res, next) => __awaiter(void 0, void 0, void 0, 
         // console.log("Error From User Controller Line 36", error);
         next(error);
     }
-});
+}));
 exports.UserController = {
     createUserIntoDb,
     getUsersFromDb,

@@ -10,8 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoriesController = void 0;
+const catchAsyncFunction_1 = require("../helpers/CatchAsyccFunction/catchAsyncFunction");
 const categories_services_1 = require("./categories.services");
-const createCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const createCategory = (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const newCategory = req.body;
         const result = yield categories_services_1.CategoryServices.createACategory(newCategory);
@@ -25,10 +26,10 @@ const createCategory = (req, res, next) => __awaiter(void 0, void 0, void 0, fun
     catch (error) {
         next(error);
     }
-});
-const retrieveAllCategories = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+}));
+const retrieveAllCategories = (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield categories_services_1.CategoryServices.receiveASingleCategory();
+        const result = yield categories_services_1.CategoryServices.receiveAllSingleCategory();
         res.status(200).json({
             message: "Categories Data Created",
             data: result,
@@ -38,5 +39,18 @@ const retrieveAllCategories = (req, res, next) => __awaiter(void 0, void 0, void
     catch (error) {
         next(error);
     }
-});
+}));
+const retrieveSingleCategory = (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const result = yield categories_services_1.CategoryServices.receiveAllSingleCategory();
+        res.status(200).json({
+            message: "Categories Data Created",
+            data: result,
+            success: "Success"
+        });
+    }
+    catch (error) {
+        next(error);
+    }
+}));
 exports.CategoriesController = { createCategory, retrieveAllCategories };

@@ -15,15 +15,24 @@ const createACategory = (categoriesPayload) => __awaiter(void 0, void 0, void 0,
     const result = yield categories_model_1.Categories.create(categoriesPayload);
     return result;
 });
-const receiveASingleCategory = () => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield categories_model_1.Categories.find().populate({
-        path: "user",
-        select: " username email"
-    });
+const receiveAllSingleCategory = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield categories_model_1.Categories.find();
     // const result = await Review.find().populate({
     //   path: 'user',
     //   select: 'name photo',
     // })
     return result;
 });
-exports.CategoryServices = { createACategory, receiveASingleCategory };
+const receiveSingleCategory = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield categories_model_1.Categories.findById(id);
+    // const result = await Review.find().populate({
+    //   path: 'user',
+    //   select: 'name photo',
+    // })
+    return result;
+});
+exports.CategoryServices = {
+    createACategory,
+    receiveAllSingleCategory,
+    receiveSingleCategory
+};
