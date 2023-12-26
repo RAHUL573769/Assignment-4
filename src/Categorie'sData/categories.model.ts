@@ -1,4 +1,4 @@
-import { Schema } from "mongoose";
+import { Schema, model } from "mongoose";
 import { ICategory } from "./categories.interface";
 
 const categorySchema = new Schema<ICategory>({
@@ -8,7 +8,10 @@ const categorySchema = new Schema<ICategory>({
   },
   createdBy: {
     type: Schema.Types.ObjectId,
-    // ref
-    unique: true
+
+    unique: true,
+    ref: "User" //reference to user Model
   }
 });
+
+export const Categories = model<ICategory>("Categories", categorySchema);
