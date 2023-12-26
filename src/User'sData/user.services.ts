@@ -9,4 +9,27 @@ const createUserIntoDb = async (payload: IUser): Promise<IUser> => {
   return result;
 };
 
-export const UserServices = { createUserIntoDb };
+const getAllCreatedUsersFromDb = async (): Promise<IUser[]> => {
+  const result = await User.find({});
+  return result;
+};
+const getSingleDataFromDb = async (id: string): Promise<IUser | null> => {
+  const result = await User.findById(id);
+  return result;
+};
+const updateUserData = async (
+  id: string,
+  userData: IUser
+): Promise<IUser | null> => {
+  const result = await User.findByIdAndUpdate(id, userData, {
+    new: true,
+    runValidators: true
+  });
+  return result;
+};
+export const UserServices = {
+  createUserIntoDb,
+  getAllCreatedUsersFromDb,
+  getSingleDataFromDb,
+  updateUserData
+};

@@ -40,4 +40,66 @@ const createUserIntoDb = async (
   }
 };
 
-export const UserController = { createUserIntoDb };
+const getUsersFromDb = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const result = await UserServices.getAllCreatedUsersFromDb();
+
+    res.status(httpStatus.OK).json({
+      message: "User Data Retrieved",
+      status: "Success",
+      data: result
+    });
+  } catch (error) {
+    // console.log("Error From User Controller Line 36", error);
+    next(error);
+  }
+};
+const getSingleUserFromDb = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const userId = req.params.id;
+    const result = await UserServices.getSingleDataFromDb(userId);
+
+    res.status(httpStatus.OK).json({
+      message: "User Data Retrieved",
+      status: "Success",
+      data: result
+    });
+  } catch (error) {
+    // console.log("Error From User Controller Line 36", error);
+    next(error);
+  }
+};
+const updateUsersFromDb = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const id = req.params.id;
+    const body = req.body;
+    const result = await UserServices.updateUserData(id, body);
+
+    res.status(httpStatus.OK).json({
+      message: "User Data Updated",
+      status: "Success",
+      data: result
+    });
+  } catch (error) {
+    // console.log("Error From User Controller Line 36", error);
+    next(error);
+  }
+};
+export const UserController = {
+  createUserIntoDb,
+  getUsersFromDb,
+  getSingleUserFromDb,
+  updateUsersFromDb
+};
