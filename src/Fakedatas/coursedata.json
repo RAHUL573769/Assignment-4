@@ -1,0 +1,24 @@
+{
+  "title": "Introduction to Programming",
+  "instructor": "John Doe",
+  "categoryId": "658a93b20bfcaa9b371270ce",
+  "price": 49.99,
+  "tags": [
+    {
+      "name": "beginner",
+      "isDeleted": false
+    },
+    {
+      "name": "coding",
+      "isDeleted": false
+    }
+  ],
+  "startDate": "2023-01-01",
+  "endDate": "2023-02-01",
+  "language": "English",
+  "provider": "Tech Learning Center",
+  "details": {
+    "level": "Beginner",
+    "description": "A comprehensive course for beginners to learn programming."
+  }
+}
