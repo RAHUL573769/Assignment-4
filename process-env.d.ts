@@ -1,6 +1,7 @@
-// declare namespace NodeJs {
-//   export type ProcessEnv = {
-//     PORT: number;
-//     DatabaseUrl: string;
-//   };
-// }
+export declare namespace NodeJs {
+  export type ProcessEnv = {
+    PORT: number;
+    DatabaseUrl: string;
+    // JWT_TOKEN: string;
+  };
+}
