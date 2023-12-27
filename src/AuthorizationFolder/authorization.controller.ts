@@ -6,8 +6,9 @@ const loginAuthController = async (
   res: Response,
   next: NextFunction
 ) => {
-  const result = AuthServices.loginAuthServices(req.body);
-  console.log(result);
+  console.log(req.body);
+  const result = await AuthServices.loginAuthServices(req.body);
+  console.log('Result From Auth Controllers',result);
 };
 
 const registerAuthController = async (

@@ -2,11 +2,13 @@ import express, { NextFunction, Request, Response } from "express";
 import { validationMiddleWare } from "../middlewares/validationMiddlewares";
 import { CategoriesValidation } from "./categories.validations";
 import { CategoriesController } from "./categories.controller";
+import { checkAuth } from "../middlewares/authMiddlewares";
 
 const router = express.Router();
 
 router.post(
   "/create-categories",
+  checkAuth(),
   validationMiddleWare(CategoriesValidation.createCategoriesValidation),
   CategoriesController.createCategory
 );

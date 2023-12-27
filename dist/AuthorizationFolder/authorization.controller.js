@@ -12,8 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const authorization_services_1 = require("./authorization.services");
 const loginAuthController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = authorization_services_1.AuthServices.loginAuthServices(req.body);
-    console.log(result);
+    console.log(req.body);
+    const result = yield authorization_services_1.AuthServices.loginAuthServices(req.body);
+    console.log('Result From Auth Controllers', result);
 });
 const registerAuthController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const result = authorization_services_1.AuthServices.registerAuthServices(req.body);

@@ -8,16 +8,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthServices = void 0;
 const user_model_1 = require("../User'sData/user.model");
+const config_1 = __importDefault(require("../config"));
 const hashingPassword_1 = require("../helpers/HashingPasswordFolder/hashingPassword");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const loginAuthServices = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log("Payload from Login Services",payload);
     const user = yield user_model_1.User.findOne({ email: payload.email });
+    // console.log("User FROM Authorization Services", user);
     if (!user) {
-        throw new Error("Invalid Creddentials");
+        throw new Error("Invalid Credentials");
     }
-    console.log("User FROM Authorization Services", user);
+    const jwtPayLoad = { email: user.email, role: user.role };
+    const token = jsonwebtoken_1.default.sign(jwtPayLoad, config_1.default.JWT_SECRET, {
+        expiresIn: "10d"
+    });
+    console.log("Token From Auth Services", token);
+    return { token };
 });
 const registerAuthServices = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     //   console.log("From Register Services Payload is", payload);

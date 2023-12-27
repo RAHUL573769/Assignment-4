@@ -3,5 +3,6 @@ export declare namespace NodeJs {
     PORT: number;
     DatabaseUrl: string;
     // JWT_TOKEN: string;
+    JWT_SECRET: string;
   };
 }

@@ -1,18 +1,25 @@
 import { IUser } from "../User'sData/user.interface";
 import { User } from "../User'sData/user.model";
+import config from "../config";
 import { hashPassword } from "../helpers/HashingPasswordFolder/hashingPassword";
-
-interface IRegister extends Omit<IUser, "role"> {}
-interface ILogin {
-  email: string;
-  password: string;
-}
+import { ILogin, IRegister } from "./auth.interface";
+import jwt, { JwtPayload } from "jsonwebtoken";
 const loginAuthServices = async (payload: ILogin) => {
+  // console.log("Payload from Login Services",payload);
   const user = await User.findOne({ email: payload.email });
+  // console.log("User FROM Authorization Services", user);
   if (!user) {
-    throw new Error("Invalid Creddentials");
+    throw new Error("Invalid Credentials");
   }
-  console.log("User FROM Authorization Services", user);
+  const jwtPayLoad: JwtPayload = { email: user.email, role: user.role };
+
+  const token = jwt.sign(jwtPayLoad, config.JWT_SECRET, {
+    expiresIn: "10d"
+  });
+
+  console.log("Token From Auth Services", token);
+
+  return { token };
 };
 
 const registerAuthServices = async (payload: IRegister) => {
