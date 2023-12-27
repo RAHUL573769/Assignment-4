@@ -10,6 +10,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
-const loginAuthController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () { });
-const registerAuthController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () { });
+const authorization_services_1 = require("./authorization.services");
+const loginAuthController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = authorization_services_1.AuthServices.loginAuthServices(req.body);
+    console.log(result);
+});
+const registerAuthController = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = authorization_services_1.AuthServices.registerAuthServices(req.body);
+    res.status(200).json({
+        message: "User Registered Successfully ",
+        status: "Success",
+        data: result
+    });
+});
 exports.AuthController = { loginAuthController, registerAuthController };

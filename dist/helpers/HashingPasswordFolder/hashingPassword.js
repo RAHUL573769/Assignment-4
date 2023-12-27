@@ -34,22 +34,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.verifyPassword = exports.hashPassword = void 0;
 const argon2 = __importStar(require("argon2"));
-// Hashing password
-function hashPassword(password) {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const hashedPassword = yield argon2.hash(password);
-            // console.log("From HashPassword MiddleWare", hashedPassword);
-            return hashedPassword;
-        }
-        catch (error) {
-            // console.error("Error hashing password:", hashPassword);
-            throw error;
-        }
-    });
-}
+const hashPassword = (inputpassword) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const hash = yield argon2.hash(inputpassword);
+        console.log(hash);
+        return hash;
+    }
+    catch (err) {
+        //...
+    }
+});
 exports.hashPassword = hashPassword;
-// Verifying password
 function verifyPassword(hashedPassword, inputPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -63,18 +58,3 @@ function verifyPassword(hashedPassword, inputPassword) {
     });
 }
 exports.verifyPassword = verifyPassword;
-// Example usage
-(() => __awaiter(void 0, void 0, void 0, function* () {
-    const passwordToHash = "your_password";
-    try {
-        // Hash the password
-        const hashedPassword = yield hashPassword(passwordToHash);
-        console.log("Hashed Password  From hashing password Folder:", hashedPassword);
-        // Verify the password
-        const isPasswordValid = yield verifyPassword(hashedPassword, "user_input_password");
-        // console.log("Is Password Valid?", isPasswordValid);
-    }
-    catch (error) {
-        console.error("An error occurred From hashing password Folder:", error);
-    }
-}))();

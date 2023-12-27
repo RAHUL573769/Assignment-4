@@ -10,11 +10,13 @@ const user_route_1 = require("./User'sData/user.route");
 const globalErrorHandler_1 = require("./helpers/ErrorHandlingFolder/globalErrorHandler");
 const categories_routes_1 = require("./Categorie'sData/categories.routes");
 const course_route_1 = require("./Course'sData/course.route");
+const authorization_route_1 = require("./AuthorizationFolder/authorization.route");
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
 app.use("/api", user_route_1.UserRouter);
 app.use("/api", categories_routes_1.CategoriesRouter);
 app.use("/api", course_route_1.CourseRouter);
+app.use("/api", authorization_route_1.authRoutes);
 app.use(globalErrorHandler_1.globalErrorHandler);
 app.get("/", (req, res) => {
     res.send("Hello World!");

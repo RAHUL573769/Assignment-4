@@ -15,8 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const user_services_1 = require("./user.services");
 const http_status_1 = __importDefault(require("http-status"));
-const hashingPassword_1 = require("../helpers/HashingPasswordFolder/hashingPassword");
 const catchAsyncFunction_1 = require("../helpers/CatchAsyccFunction/catchAsyncFunction");
+const hashingPassword_1 = require("../helpers/HashingPasswordFolder/hashingPassword");
 const createUserIntoDb = (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const userData = req.body;

@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { UserServices } from "./user.services";
 import httpStatus from "http-status";
-import { hashPassword } from "../helpers/HashingPasswordFolder/hashingPassword";
+// import { hashPassword } from "../helpers/HashingPasswordFolder/hashingPassword";
 import { IUser } from "./user.interface";
 import GenericError from "../classes/errorClasses/GenericError";
 import { catchAsync } from "../helpers/CatchAsyccFunction/catchAsyncFunction";
+import { hashPassword } from "../helpers/HashingPasswordFolder/hashingPassword";
 
 const createUserIntoDb = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -15,7 +16,7 @@ const createUserIntoDb = catchAsync(
       const finalUserData: IUser = {
         username: userData.username,
         email: userData.email,
-        password: hashedPassword1,
+        password: hashedPassword1 as string,
         role: userData.role
       };
       // throw new GenericError("vua", 404);
