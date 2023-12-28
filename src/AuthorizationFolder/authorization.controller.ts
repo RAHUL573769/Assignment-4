@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { AuthServices } from "./authorization.services";
+import { catchAsync } from "../helpers/CatchAsyccFunction/catchAsyncFunction";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const loginAuthController = async (
   req: Request,
@@ -8,7 +10,11 @@ const loginAuthController = async (
 ) => {
   console.log(req.body);
   const result = await AuthServices.loginAuthServices(req.body);
-  console.log('Result From Auth Controllers',result);
+  res.status(200).json({
+    message: "User Logged In Successfully ",
+    status: "Success",
+    data: result
+  });
 };
 
 const registerAuthController = async (
@@ -24,4 +30,23 @@ const registerAuthController = async (
   });
 };
 
-export const AuthController = { loginAuthController, registerAuthController };
+const changePasswordAuthController = catchAsync(
+  async (req: Request, res: Response) => {
+    const token = req.headers.authorization;
+    const decodedToken = jwt.verify(
+      token as string,
+      "tour-secret"
+    ) as JwtPayload;
+
+    const result = await AuthServices.changePasswordAuthServices(
+      decodedToken,
+      req.body
+    );
+  }
+);
+
+export const AuthController = {
+  loginAuthController,
+  registerAuthController,
+  changePasswordAuthController
+};

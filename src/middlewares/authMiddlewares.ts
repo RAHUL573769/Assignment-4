@@ -6,29 +6,30 @@ import config from "../config";
 import { User } from "../User'sData/user.model";
 
 export const checkAuth = (...roles: Array<keyof typeof USER_ROLES>) => {
+  console.log(roles);
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const token = req.headers.authorization;
-      //   console.log("Token From Auth Middleware", token);
-      if (!token) {
-        throw new Error("User Token Not Found");
-      }
-      const decodedToken = jwt.verify(token, config.JWT_SECRET);
-      const { email, role } = decodedToken as JwtPayload;
-
-      if (!email) {
-        throw new Error("Invalid Email in Decoded Email");
-      }
-      const user = await User.findOne({ email });
-
-      if (!user) {
-        throw new Error("Invalid User");
-      }
-      if (!roles.includes(user?.role)) {
-        throw new Error("Invalid User Privilages");
-      }
-    } catch (error) {
-      next(error);
+    const token = req.headers.authorization;
+    // console.log("Token From Auth Middleware", token);
+    if (!token) {
+      throw new Error("User Token Not Found");
     }
+    const decodedToken = jwt.verify(token, "tour-secret");
+    console.log("Decoded Token For Jwt Verify", decodedToken);
+    const { email, role } = decodedToken as JwtPayload;
+
+    if (!role) {
+      throw new Error("Invalid Email in Decoded Email");
+    }
+    const user = await User.findOne({ role }).select("+password");
+
+    if (!user) {
+      throw new Error("Invalid User");
+    }
+    // console.log(!roles.includes(user?.role));
+    // if (!roles.includes(user?.role)) {
+    //   throw new Error("Invalid User Privilages");
+    // }
+
+    next();
   });
 };

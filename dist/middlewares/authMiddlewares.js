@@ -15,32 +15,30 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.checkAuth = void 0;
 const catchAsyncFunction_1 = require("../helpers/CatchAsyccFunction/catchAsyncFunction");
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const config_1 = __importDefault(require("../config"));
 const user_model_1 = require("../User'sData/user.model");
 const checkAuth = (...roles) => {
+    console.log(roles);
     return (0, catchAsyncFunction_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-        try {
-            const token = req.headers.authorization;
-            //   console.log("Token From Auth Middleware", token);
-            if (!token) {
-                throw new Error("User Token Not Found");
-            }
-            const decodedToken = jsonwebtoken_1.default.verify(token, config_1.default.JWT_SECRET);
-            const { email, role } = decodedToken;
-            if (!email) {
-                throw new Error("Invalid Email in Decoded Email");
-            }
-            const user = yield user_model_1.User.findOne({ email });
-            if (!user) {
-                throw new Error("Invalid User");
-            }
-            if (!roles.includes(user === null || user === void 0 ? void 0 : user.role)) {
-                throw new Error("Invalid User Privilages");
-            }
+        const token = req.headers.authorization;
+        // console.log("Token From Auth Middleware", token);
+        if (!token) {
+            throw new Error("User Token Not Found");
         }
-        catch (error) {
-            next(error);
+        const decodedToken = jsonwebtoken_1.default.verify(token, "tour-secret");
+        console.log("Decoded Token For Jwt Verify", decodedToken);
+        const { email, role } = decodedToken;
+        if (!role) {
+            throw new Error("Invalid Email in Decoded Email");
         }
+        const user = yield user_model_1.User.findOne({ role }).select("+password");
+        if (!user) {
+            throw new Error("Invalid User");
+        }
+        // console.log(!roles.includes(user?.role));
+        // if (!roles.includes(user?.role)) {
+        //   throw new Error("Invalid User Privilages");
+        // }
+        next();
     }));
 };
 exports.checkAuth = checkAuth;

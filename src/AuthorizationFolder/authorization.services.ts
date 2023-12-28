@@ -13,7 +13,7 @@ const loginAuthServices = async (payload: ILogin) => {
   }
   const jwtPayLoad: JwtPayload = { email: user.email, role: user.role };
 
-  const token = jwt.sign(jwtPayLoad, config.JWT_SECRET, {
+  const token = jwt.sign(jwtPayLoad, "tour-secret", {
     expiresIn: "10d"
   });
 
@@ -38,4 +38,16 @@ const registerAuthServices = async (payload: IRegister) => {
   return result;
 };
 
-export const AuthServices = { loginAuthServices, registerAuthServices };
+const changePasswordAuthServices = async (
+  decoded: JwtPayload,
+  payload: { oldPassword: string; newPassword: string }
+) => {
+  console.log(decoded);
+  console.log(payload);
+};
+
+export const AuthServices = {
+  loginAuthServices,
+  registerAuthServices,
+  changePasswordAuthServices
+};
